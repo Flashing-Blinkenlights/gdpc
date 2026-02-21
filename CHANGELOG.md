@@ -1,6 +1,74 @@
 # In development
 
+Compatible with GDMC-HTTP **>=1.6.0, <2.0.0** and Minecraft **1.21.4**.
+
+**Fixes:**
+- The re-exports in the `gdpc` top-level package are now formatted in a more standard way, which may prevent issues with static analysis tools when importing them.
+
+
+# 8.1.0
+
+Compatible with GDMC-HTTP **>=1.6.0, <2.0.0** and Minecraft **1.21.4**.
+
+**Additions:**
+- Added `interface.placeEntities`. (Thanks [Niels-NTG](https://github.com/Niels-NTG)!)
+- Added `interface.updateEntities`. (Thanks [Niels-NTG](https://github.com/Niels-NTG)!)
+- Added `interface.removeEntities`. (Thanks [Niels-NTG](https://github.com/Niels-NTG)!)
+
+**Fixes:**
+- Documentation improvements.
+
+
+# 8.0.0
+
+Compatible with GDMC-HTTP **>=1.6.0, <2.0.0** and Minecraft **1.21.4**.
+
+**Supported Python versions:**
+- GDPC now requires Python 3.8. (This is actually a bugfix: Python 3.8 was already required since GDPC 7.0.0.)
+
+**Breaking:**
+- Increased minimum supported GDMC-HTTP version to 1.6.0.
+- Increased supported Minecraft version to 1.21.4. In particular, all written book-related helpers (e.g. `minecraft_tools.bookData`) have been updated to the 1.21.4 format. (Thanks [Niels-NTG](https://github.com/Niels-NTG)!)
+- Changed the following `vector_tools` constants from `Tuple`s to `FrozenSet`s: `DIAGONALS_2D`, `DIAGONALS_3D`, `DIAGONALS`.
+- Removed feature of `editor_tools.placeSign` and `editor_tools.placeLectern` where you could pass `None` to `facing` or `rotation` and the function would select a least obstructed direction. This feature relied heavily on `lookup.py`, which is now deprecated (see "Deprecations").
+- Removed deprecated `Rect.inner` and `Box.inner`.
+
+**Additions:**
+- Added `interface.getHeightmap`. (Thanks [Niels-NTG](https://github.com/Niels-NTG)!)
+
+**Fixes:**
+- Fixed `Editor.__del__` sometimes crashing for some users when there were blocks in the block buffer on program exit. (Thanks [SpecificProtagonist](https://github.com/SpecificProtagonist) and [Flashing-Blinkenlights](https://github.com/Flashing-Blinkenlights)!)
+- Added a `py.typed` file, which indicates that GDPC provides type hints. Some type checkers that didn't pick up GDPC's type hints before now do, most notably *Mypy*.
+- Added and refined various type hints.
+- Fixed `editor_tools.placeSign` sometimes creating `Block`s with superfluous block states (`rotation` for wall signs and `facing` for non-wall signs).
+- Fixed `editor_tools.placeContainerBlock` raising the wrong exception when passing a block with `id = None`.
+- Fixed `vector_tools.rotateSize2D` sometimes returning the input value instead of an `ivec2`.
+- Fixed `vector_tools.l1Distance` crashing when passing veclikes that don't support the `-` operator.
+- Fixed `world_slice.WorldSlice.getPrimaryBiomeInChunkGlobal` crashing if you passed a position not contained in the world slice.
+- Fixed `interface.placeStructure` crashing if you passed `rotate=None` and `mirror=(True, True)`.
+- Fixed `editor.Editor.placeBlockGlobal` possibly crashing when the passed `position` is not an `ivec3` and buffering is enabled.
+- Fixed `editor.Editor.placeBlock` possibly crashing when the passed `position` is iterable, sizable and has length 3, but does not have `__getitem__`. Yeah, this one's obscure.
+- Fixed GDPC not actually being compatible with the documented miminum Python version, by increasing the minimum Python version (see "Supported Python versions").
+
+**Deprecations:**
+- Deprecated `lookup.py`. See the documentation the reasons and for alternatives. Also removed example `visualize_map.py`, which heavily relied on `lookup.py`.
+- Deprecated `minecraft_tools.getObtrusiveness`, which relied on `lookup.py`.
+- Deprecated `editor_tools.getOptimalFacingDirection`, which relied on `lookup.py`.
+- Deprecated `utils.visualizeMaps`, which was only used by `visualize_map.py`, and which is currently the only user of the OpenCV and Matplotlib dependencies.
+- Deprecated all remaining in-repository examples. They have been replaced by the new [documentation website](https://gdpc.readthedocs.io).
+
+
+# 7.4.0
+
 Compatible with GDMC-HTTP **>=1.0.0, <2.0.0** and Minecraft **1.20.2**.
+
+**Additions:**
+- Added an extensive [documentation website](https://gdpc.readthedocs.io)!
+- The transformation system now supports the `half` state of stairs blocks.
+- `Rect` and `Box` are now iterable, yielding the same values as `Rect.inner`/`Box.inner`. (Thanks [Flashing-Blinkenlights](https://github.com/Flashing-Blinkenlights)!)
+
+**Deprecations:**
+- `Rect.inner` and `Box.inner` are deprecated, since the classes can now be directly iterated over.
 
 
 # 7.3.0
@@ -32,7 +100,7 @@ Compatible with GDMC-HTTP **>=1.0.0, <2.0.0** and Minecraft **1.20.2**.
 
 Compatible with GDMC-HTTP **>=1.0.0, <2.0.0** and Minecraft **1.20.2**.
 
-**Additions**
+**Additions:**
 - Added `interface` bindings for GDMC-HTTP `GET /entities` and `GET /players`. (Thanks [Niels-NTG](https://github.com/Niels-NTG)!)
 
 
@@ -112,7 +180,7 @@ Starting from this version, GDPC will use
 
 Compatible with GDMC-HTTP **>=1.0.0, <2.0.0**.\
 Note that the GDMC-HTTP repository has changed! It can now be found at
-https://github.com/Niels-NTG/gdmc_http_interface
+<https://github.com/Niels-NTG/gdmc_http_interface>
 
 
 ## Changes
@@ -368,4 +436,4 @@ system.
 # Older versions
 
 For older versions, see
-https://github.com/nikigawlik/gdmc_http_client_python/releases
+<https://github.com/nikigawlik/gdmc_http_client_python/releases>

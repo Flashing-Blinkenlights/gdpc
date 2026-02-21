@@ -1,5 +1,19 @@
 #!/usr/bin/env python3
 
+# ==============================================================================
+#
+# THE EXAMPLES ARE DEPRECATED!
+#
+# All in-repository examples are deprecated and will be removed in a future
+# version of GDPC. They have been replaced by the new documentation website:
+# https://gdpc.readthedocs.io/en/stable/.
+#
+# The examples are longer maintained and may be incompatible with the latest
+# version of GDPC.
+#
+# ==============================================================================
+
+
 """
 Use GDPC's powerful transformation system.
 """
@@ -228,7 +242,7 @@ with editor.pushTransform((5,100,13)):
 # need to be rotated or flipped as well. Certain blocks, such as stairs, have an orientation that
 # needs to be modified. These orientations are usually stored in block states.
 #
-# GDPC's transformation system can can automatically deal with most of these orientated blocks.
+# GDPC's transformation system can automatically deal with most of these oriented blocks.
 
 # Build the staircase at "(9,100,1)", but rotated. Notice how the stairs blocks are rotated as well.
 with editor.pushTransform(Transform((9,100,1+2), rotation=3)):

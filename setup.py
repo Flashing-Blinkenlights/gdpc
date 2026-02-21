@@ -1,4 +1,5 @@
 import os
+
 from setuptools import setup
 
 
@@ -8,18 +9,19 @@ METADATA_FILE_PATH = os.path.join(SCRIPT_DIR, "src/gdpc/__init__.py")
 
 # Based on https://github.com/pypa/pip/blob/9aa422da16e11b8e56d3597f34551f983ba9fbfd/setup.py
 def get_metadata(name: str) -> str:
-    with open(METADATA_FILE_PATH) as file:
+    dunderString = f"__{name}__"
+    with open(METADATA_FILE_PATH, encoding="utf-8") as file:
         contents = file.read()
     for line in contents.splitlines():
-        dunderString = f"__{name}__"
-        if line.startswith(f"{dunderString}"):
+        if line.startswith(dunderString):
             # __{name}__ = "{value}"
             delim = '"' if '"' in line else "'"
             return line.split(delim)[1]
-    raise RuntimeError(f"Unable to find {dunderString} value.")
+    msg = f"Unable to find {dunderString} value."
+    raise RuntimeError(msg)
 
 
-with open("README.md", "r", encoding="utf-8") as readme:
+with open("README.md", encoding="utf-8") as readme:
     long_description = readme.read()
 
 
@@ -38,20 +40,20 @@ setup(
     packages = ["gdpc"], # Note: subpackages must be listed explicitly
     package_dir={"": "src"},
     install_requires=[
+        "Deprecated",
         "matplotlib",
         "more-itertools",
         "NBT",
         "numpy",
         "opencv_python",
-        "PyGLM >= 2.7.0",
-        "pyglm-typing",
+        "PyGLM >= 2.8.0",
         "requests",
         "scikit-image >= 0.19.0",
         "scipy",
-        "termcolor",
-        "typing_extensions"
+        "types-requests",
+        "typing_extensions",
     ],
-    python_requires=">=3.7, <4",
+    python_requires=">=3.8, <4",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
@@ -61,9 +63,11 @@ setup(
         "Topic :: Games/Entertainment :: Simulation",
         "Topic :: Software Development :: Libraries :: Application Frameworks",
         "Topic :: Software Development :: Version Control :: Git",
+        "Typing :: Typed",
     ],
     keywords="GDMC, generative design, Minecraft, HTTP, development",
     project_urls={
+        "Documentation":                "https://gdpc.readthedocs.io",
         "Bug Reports":                  "https://github.com/avdstaaij/gdpc/issues",
         "Changelog":                    "https://github.com/avdstaaij/gdpc/blob/master/CHANGELOG.md",
         # "Official Competition Website": "https://gendesignmc.engineering.nyu.edu",
@@ -71,5 +75,5 @@ setup(
         "Chat about it on Discord":     "https://discord.gg/YwpPCRQWND",
         "Source":                       "https://github.com/avdstaaij/gdpc",
     },
-    zip_safe=False
+    zip_safe=False,
 )
