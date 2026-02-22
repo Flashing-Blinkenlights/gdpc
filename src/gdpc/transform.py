@@ -207,14 +207,11 @@ def rotatedBoxTransform(box: Box, rotation: int) -> Transform:
     """Returns a transform that maps the box ``((0,0,0), size)`` to ``box`` under ``rotation``,
     where :python:`size == vector_tools.rotateSize3D(box.size, rotation)`."""
     return Transform(
-        translation=(
-            box.offset
-            + ivec3(
+        translation = box.offset + ivec3(
                 box.size.x - 1 if rotation in {1, 2} else 0,
                 0,
                 box.size.z - 1 if rotation in {2, 3} else 0,
-            )
-        ),
+            ),
         rotation = rotation,
     )
 

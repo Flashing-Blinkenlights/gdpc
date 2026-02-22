@@ -496,7 +496,7 @@ def getDimensionality(corner1: Vec2iLike | Vec3iLike, corner2: Vec2iLike | Vec3i
     return int(len(corner1) - np.sum(flatSides)), list(flatSides) # pyright: ignore [reportUnknownMemberType]
 
 
-def anyComponentSmaller(v1: Union[ivec2, ivec3, vec2, vec3], v2: Union[ivec2, ivec3, vec2, vec3]) -> bool:
+def anyComponentSmaller(v1: Vec2iLike | Vec3iLike, v2: Vec2iLike | Vec3iLike) -> bool:
     """Checks if any component of v1 is smaller than the corresponding component in v2."""
     return glm.any(glm.smallerThan(v1, v2))
 
