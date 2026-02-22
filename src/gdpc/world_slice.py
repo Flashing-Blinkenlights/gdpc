@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 from dataclasses import dataclass
 from io import BytesIO
 from math import ceil, floor, log2
@@ -14,6 +15,7 @@ from pyglm.glm import ivec2, ivec3
 
 from . import interface
 from .block import Block
+from .editor import BlockGetterMixin
 from .vector_tools import Box, Rect, Vec3iLike, addY, loop2D, loop3D, trueMod2D
 
 

@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 
 from pyglm.glm import ivec3
 
+from .editor import BlockGetterMixin, BlockPlacerMixin
 from .vector_tools import Box, Vec3iLike
 
 
@@ -36,12 +37,6 @@ class Model(BlockGetterMixin, BlockPlacerMixin):
         else:
             self._blocks: list[Block | None] = [None] * volume
 
-        elif len(blocks) != volume:
-            raise ValueError("The number of blocks should be equal to size[0] * size[1] * size[2]")
-        else:
-            self._blocks = copy(blocks)
-
-
     @property
     def size(self) -> ivec3:
         """This Model's size."""
@@ -50,8 +45,7 @@ class Model(BlockGetterMixin, BlockPlacerMixin):
     @property
     def blocks(self) -> list[Block | None]:
         """This Model's block list."""
-        return copy(self._blocks) # Allows block modification, but not resizing
-
+        return copy(self._blocks)  # Allows block modification, but not resizing
 
     def getBlock(self, position: Vec3iLike) -> Block | None:
         """Returns the block at ``vec``."""
